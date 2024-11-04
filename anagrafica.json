@@ -2,16 +2,25 @@
     {
         "Nome": "Mario",
         "Cognome": "Rossi",
-        "Eta": 30
+        "Eta": 30,
+        "Indirizzo": "via garibaldi 124",
+        "Città": "Milano",
+        "Telefono": 3917016766
     },
     {
         "Nome": "Luca",
         "Cognome": "Bianchi",
         "Eta": 25
+        "Indirizzo": "via G. Carducci 2",
+        "Città": "Pisa",
+        "Telefono": 3578910034
     },
     {
         "Nome": "Giulia",
         "Cognome": "Verdi",
         "Eta": 28
+        "Indirizzo": "via fratelli della pace 23",
+        "Città": "Catania",
+        "Telefono": 3889198788
     }
 ]
