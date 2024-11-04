@@ -17,17 +17,6 @@
         th {
             background-color: #f2f2f2;
         }
-        .thumb {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-            border-radius: 5px;
-        }
-        .view-cv {
-            color: blue;
-            cursor: pointer;
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
@@ -35,64 +24,42 @@
     <table id="anagraficaTable">
         <thead>
             <tr>
-                <th>Foto</th>
                 <th>Nome</th>
                 <th>Cognome</th>
                 <th>Età</th>
                 <th>Indirizzo</th>
                 <th>Città</th>
                 <th>Telefono</th>
-                <th>CV</th>
             </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+        </tbody>
     </table>
 
     <script>
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'anagrafica.json', true);
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                var data = JSON.parse(xhr.responseText);
-                var tabella = document.getElementById('anagraficaTable').getElementsByTagName('tbody')[0];
-
+        var c = new XMLHttpRequest();
+        c.open('GET', 'anagrafica.json', true);
+        c.onload = function () {
+            if (c.status === 200) {
+                var data = JSON.parse(c.responseText);  // Usare `c.responseText` qui
+                var tabella = document.getElementById('anagraficaTable').getElementsByTagName('tbody')[0]; // Selezione <tbody>
+                
                 for (var i = 0; i < data.length; i++) {
                     var person = data[i];
                     var row = tabella.insertRow();
 
-                    // Colonna della miniatura
-                    var imgCell = row.insertCell(0);
-                    var img = document.createElement('img');
-                    img.src = person.Immagine;
-                    img.classList.add('thumb');
-                    imgCell.appendChild(img);
-
-                    // Altri dati
-                    row.insertCell(1).innerText = person.Nome;
-                    row.insertCell(2).innerText = person.Cognome;
-                    row.insertCell(3).innerText = person.Eta;
-                    row.insertCell(4).innerText = person.Indirizzo;
-                    row.insertCell(5).innerText = person.Citta;
-                    row.insertCell(6).innerText = person.Telefono;
-
-                    // Colonna per visualizzare il CV
-                    var cvCell = row.insertCell(7);
-                    var cvLink = document.createElement('span');
-                    cvLink.classList.add('view-cv');
-                    cvLink.innerText = "Visualizza CV";
-                    cvLink.onclick = (function(cvFile) {
-                        return function() {
-                            window.location.href = 'cv.html?file=' + encodeURIComponent(cvFile);
-                        };
-                    })(person.cvFile);
-                    cvCell.appendChild(cvLink);
+                    row.insertCell(0).innerText = person.Nome;
+                    row.insertCell(1).innerText = person.Cognome;
+                    row.insertCell(2).innerText = person.Eta;
+                    row.insertCell(3).innerText = person.Indirizzo;
+                    row.insertCell(4).innerText = person.Citta;
+                    row.insertCell(5).innerText = person.Telefono;
                 }
-            } else {
-                console.error("Errore durante il caricamento del file JSON.");
             }
         };
-        xhr.send();
+        c.send();
     </script>
+    
 </body>
 </html>
 
