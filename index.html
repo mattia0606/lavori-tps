@@ -32,7 +32,8 @@
                 <th>Telefono</th>
             </tr>
         </thead>
-
+        <tbody>
+        </tbody>
     </table>
 
     <script>
@@ -40,19 +41,20 @@
         c.open('GET', 'anagrafica.json', true);
         c.onload = function () {
             if (c.status === 200) {
-                var data = JSON.parse(xhr.responseText);
-                for(i=0; i<data.length; i++){      
-                var tabella = document.getElementById('anagraficaTable');
-
-                var row = tabella.insertRow();
+                var data = JSON.parse(c.responseText);  
+                var tabella = document.getElementById('anagraficaTable').getElementsByTagName('tbody')[0]; 
+                
+                for (var i = 0; i < data.length; i++) {
                     var person = data[i];
+                    var row = tabella.insertRow();
+
                     row.insertCell(0).innerText = person.Nome;
                     row.insertCell(1).innerText = person.Cognome;
                     row.insertCell(2).innerText = person.Eta;
                     row.insertCell(3).innerText = person.Indirizzo;
                     row.insertCell(4).innerText = person.Citta;
                     row.insertCell(5).innerText = person.Telefono;
-                };
+                }
             }
         };
         c.send();
