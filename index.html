@@ -54,6 +54,13 @@
                     row.insertCell(3).innerText = person.Indirizzo;
                     row.insertCell(4).innerText = person.Citta;
                     row.insertCell(5).innerText = person.Telefono;
+
+                     var telefonoCell = row.insertCell(5);
+                    if (Array.isArray(person.Telefono) && person.Telefono.length > 0) {
+                        telefonoCell.innerText = person.Telefono.join(", "); // Unisce i numeri separati da virgola
+                    } else {
+                        telefonoCell.innerText = "Nessun numero disponibile"; // In caso non ci siano numeri
+                    }
                 }
             }
         };
