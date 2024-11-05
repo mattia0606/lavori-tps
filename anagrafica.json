@@ -5,7 +5,7 @@
         "Eta": 30,
         "Indirizzo": "via garibaldi 124",
         "Citta": "Milano",
-        "Telefono": 3917016766
+        "Telefono": ["3917016766", "3456789012"]
     },
     {
         "Nome": "Luca",
