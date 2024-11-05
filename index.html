@@ -54,21 +54,6 @@
                     row.insertCell(3).innerText = person.Indirizzo;
                     row.insertCell(4).innerText = person.Citta;
                     row.insertCell(5).innerText = person.Telefono;
-
-   
-                    var telefonoCell = row.insertCell(6);
-
-                    
-                    if (Array.isArray(person.Telefono)) {
-                       
-                        telefonoCell.innerText = person.Telefono.length > 0 ? person.Telefono.join(", ") : "Nessun numero disponibile";
-                    } else if (typeof person.Telefono === 'string' && person.Telefono.trim() !== '') {
-                        // Caso in cui ci sia solo un numero come stringa
-                        telefonoCell.innerText = person.Telefono;
-                    } else {
-                      
-                        telefonoCell.innerText = "Nessun numero disponibile";
-                    }
                 }
             }
         };
