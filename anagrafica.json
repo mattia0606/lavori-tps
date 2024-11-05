@@ -5,7 +5,7 @@
         "Eta": 30,
         "Indirizzo": "via garibaldi 124",
         "Citta": "Milano",
-        "Telefono": [3917016766, 3456789012]
+        "Telefono": 3917016766
     },
     {
         "Nome": "Luca",
@@ -22,5 +22,13 @@
         "Indirizzo": "via fratelli della pace 23",
         "Citta": "Catania",
         "Telefono": 3889198788
-    }
+    },
+     {
+        "Nome": "Giovanni",
+        "Cognome": "Rossi",
+        "Eta": 35,
+        "Indirizzo": "Via Roma 12",
+        "Citta": "Milano",
+        "Telefono": 123456789, 987654321
+    },
 ]
