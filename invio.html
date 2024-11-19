@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pagina di invio</title>
+</head>
+<body>
+    <form id="myForm">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome"><br>
+        <label for="cognome">Cognome:</label>
+        <input type="text" id="cognome" name="cognome"><br>
+        <label for="eta">Età:</label>
+        <input type="number" id="eta" name="eta"><br>
+        <button type="button" onclick="inviaDati()">Invia</button>
+    </form>
+    <script>
+        function inviaDati() {
+            // Creazione dell'oggetto JavaScript
+            const persona = {
+                nome: document.getElementById('nome').value,
+                cognome: document.getElementById('cognome').value,
+                eta: document.getElementById('eta').value
+            };
+
+            // Conversione in JSON
+            const personaJSON = JSON.stringify(persona);
+
+            // Redirezione alla pagina riceventeL
+            window.location.href = "receiver.html?data=" + personaJSON;
+        }
+    </script>
+</body>
+</html>
