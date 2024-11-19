@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anagrafica</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        img {
+            width: 50px; /* Dimensione dell'immagine */
+            height: 50px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista Anagrafica</h1>
+    <table id="anagraficaTable">
+        <thead>
+            <tr>
+                <th>Immagine</th>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Età</th>
+                <th>Indirizzo</th>
+                <th>Città</th>
+                <th>Telefono</th>
+                <th>CV</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        var c = new XMLHttpRequest();
+        c.open('GET', 'anagrafica.json', true);
+        c.onload = function () {
+            if (c.status === 200) {
+                var data = JSON.parse(c.responseText);  // Usare c.responseText qui
+                var tabella = document.getElementById('anagraficaTable').getElementsByTagName('tbody')[0]; // Selezione <tbody>
+                
+                for (var i = 0; i < data.length; i++) {
+                    var person = data[i];
+                    var row = tabella.insertRow();
+
+                    // Colonna per l'immagine del volto
+                    var imageCell = row.insertCell(0);
+                    var img = document.createElement('img');
+                    img.src = person.VoltoUrl; // Assumiamo che il JSON abbia un campo VoltoUrl
+                    imageCell.appendChild(img);
+
+                    row.insertCell(1).innerText = person.Nome;
+                    row.insertCell(2).innerText = person.Cognome;
+                    row.insertCell(3).innerText = person.Eta;
+                    row.insertCell(4).innerText = person.Indirizzo;
+                    row.insertCell(5).innerText = person.Citta;
+                    row.insertCell(6).innerText = person.Telefono;
+
+                    // Link per visualizzare il CV
+                    var cvCell = row.insertCell(7);
+                    var cvLink = document.createElement('a');
+                    cvLink.href = 'cv.html?personId=' + i; // Passiamo l'indice per caricare il CV
+                    cvLink.textContent = 'Visualizza CV';
+                    cvCell.appendChild(cvLink);
+                }
+            }
+        };
+        c.send();
+    </script>
+</body>
+</html>
