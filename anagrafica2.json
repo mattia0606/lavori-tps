@@ -1,0 +1,26 @@
+[
+    {
+        "Nome": "Mario",
+        "Cognome": "Rossi",
+        "Eta": 30,
+        "Indirizzo": "via garibaldi 124",
+        "Citta": "Milano",
+        "Telefono": {"ufficio":215254523545, "casa":654654756756367, "privato":3917016766}
+    },
+    {
+        "Nome": "Luca",
+        "Cognome": "Bianchi",
+        "Eta": 25,
+        "Indirizzo": "via G. Carducci 2",
+        "Citta": "Pisa",
+        "Telefono":  {"ufficio":5457858845858,"casa":73473744724,"privato":87578575}
+    },
+    {
+        "Nome": "Giulia",
+        "Cognome": "Verdi",
+        "Eta": 28,
+        "Indirizzo": "via fratelli della pace 23",
+        "Citta": "Catania",
+        "Telefono":  {"ufficio":324342343424,"casa":23423424231,"privato":1234214345656}
+    }
+]
