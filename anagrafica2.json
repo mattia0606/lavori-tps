@@ -5,7 +5,7 @@
     "Eta": 35,
     "Indirizzo": "Via Roma 10",
     "Citta": "Milano",
-    "Telefono": ["1234567890", "0987654321"]
+    "Telefono": 1234567890, 0987654321
   },
   {
     "Nome": "Luisa",
@@ -13,6 +13,6 @@
     "Eta": 28,
     "Indirizzo": "Via Milano 20",
     "Citta": "Roma",
-    "Telefono": ["1122334455"]
+    "Telefono": 1122334455
   }
 ]
