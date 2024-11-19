@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pagina di ricezione</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Recupero dei dati dall'URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const personaJSON = urlParams.get('data');
+
+        // Conversione da JSON a oggetto JavaScript
+        const persona = JSON.parse(personaJSON);
+
+        // Creazione della tabella
+        const table = document.createElement('table');
+        const header = table.createTHead();
+        const row = header.insertRow();
+        const cell1 = row.insertCell();
+        const cell2 = row.insertCell();
+        const cell3 = row.insertCell();
+        cell1.textContent = "Nome";
+        cell2.textContent = "Cognome";
+        cell3.textContent = "Età";
+
+        // Aggiunta della riga con i dati
+        const body = table.createTBody();
+        const row1 = body.insertRow();
+        const cell4 = row1.insertCell();
+        const cell5 = row1.insertCell();
+        const cell6 = row1.insertCell();
+        cell4.textContent = persona.nome;
+        cell5.textContent = persona.cognome;
+        cell6.textContent = persona.eta;
+
+        document.body.appendChild(table);
+    </script>
+</body>
+</html>
