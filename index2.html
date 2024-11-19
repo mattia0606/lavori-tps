@@ -41,7 +41,7 @@ var c = new XMLHttpRequest();
 var tabella = document.getElementById("anagrafica2");
 c.open("GET", "anagrafica2.json", true);
 c.onload = function() {
-if (b.status === 200) {
+if (c.status === 200) {
 var data = JSON.parse(c.responseText);
 for(i=0;i<data.length;i++){
 var row = anagrafica2.insertRow();
