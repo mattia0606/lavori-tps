@@ -37,57 +37,55 @@
     </table>
 
 <script>
-function carica(){
-    const x=new XMLHttpRequest();
+function carica() {
+    const x = new XMLHttpRequest();
     x.open("GET", 'file2.json', true);
-    x.onload=function(){
-        if(x.status==200){
-            const dati=JSON.parse(x.responseText);
-            const tabella=document.getElementById("Anagrafica");
-            for(let i=0;i<dati.anagrafica.length;i++){
-                const persona=dati.anagrafica[i];
-                const riga=document.createElement("tr");
-                
-                    const cellaNome = document.createElement("td");
-                    cellaNome.textContent = persona.nome;
-                    riga.appendChild(cellaNome);
+    x.onload = function() {
+        if (x.status == 200) {
+            const dati = JSON.parse(x.responseText);
+            const tabella = document.getElementById("anagraficaTable"); // Corretto l'ID qui
+            for (let i = 0; i < dati.anagrafica.length; i++) {
+                const persona = dati.anagrafica[i];
+                const riga = document.createElement("tr");
 
-                    const cellaCognome = document.createElement("td");
-                    cellaCognome.textContent = persona.cognome;
-                    riga.appendChild(cellaCognome);
+                const cellaNome = document.createElement("td");
+                cellaNome.textContent = persona.nome;
+                riga.appendChild(cellaNome);
 
-                    const cellaEta = document.createElement("td");
-                    cellaEta.textContent = persona.eta;
-                    riga.appendChild(cellaEta);
+                const cellaCognome = document.createElement("td");
+                cellaCognome.textContent = persona.cognome;
+                riga.appendChild(cellaCognome);
 
-                    const cellaIndirizzo = document.createElement("td");
-                    cellaIndirizzo.textContent = persona.indirizzo;
-                    riga.appendChild(cellaIndirizzo);
+                const cellaEta = document.createElement("td");
+                cellaEta.textContent = persona.eta;
+                riga.appendChild(cellaEta);
 
-                    const cellaCitta = document.createElement("td");
-                    cellaCitta.textContent = persona.citta;
-                    riga.appendChild(cellaCitta);
+                const cellaIndirizzo = document.createElement("td");
+                cellaIndirizzo.textContent = persona.indirizzo;
+                riga.appendChild(cellaIndirizzo);
 
-                const cellaTelefoni = document.createElement("td");  
-                    const lista = document.createElement("ul");
-                    for (let j = 0; j < persona.telefoni.length; j++) {
-                        const li = document.createElement("li");
-                        li.textContent = persona.telefoni[j]; 
-                        lista.appendChild(li);
-                        }
-                    cellaTelefoni.appendChild(lista); 
-                    riga.appendChild(cellaTelefoni); 
+                const cellaCitta = document.createElement("td");
+                cellaCitta.textContent = persona.citta;
+                riga.appendChild(cellaCitta);
 
+                const cellaTelefoni = document.createElement("td");
+                const lista = document.createElement("ul");
+                for (let j = 0; j < persona.telefoni.length; j++) {
+                    const li = document.createElement("li");
+                    li.textContent = persona.telefoni[j];
+                    lista.appendChild(li);
+                }
+                cellaTelefoni.appendChild(lista);
+                riga.appendChild(cellaTelefoni);
 
-               
-                 
-                    tabella.appendChild(riga);
+                tabella.appendChild(riga);
             }
         }
-    }
-x.send();
+    };
+    x.send();
 }
 carica();
+
 </script>
 </body>
 </html>
