@@ -37,26 +37,57 @@
     </table>
 
 <script>
-var c = new XMLHttpRequest();
-var tabella = document.getElementById("anagrafica2");
-c.open("GET", "anagrafica2.json", true);
-c.onload = function() {
-if (c.status === 200) {
-var data = JSON.parse(c.responseText);
-for(i=0;i<data.length;i++){
-var row = anagrafica2.insertRow();
-row.insertCell(0).textContent = data[i].Nome;
-row.insertCell(1).textContent = data[i].Cognome;
-row.insertCell(2).textContent = data[i].Eta;
-row.insertCell(3).textContent = data[i].Indirizzo;
-row.insertCell(4).textContent = data[i].Citta;
-row.insertCell(5).textContent = data[i].Telefono.casa;
-row.insertCell(5).textContent = data[i].Telefono.ufficio;
-row.insertCell(5).textContent = data[i].Telefono.privato;
+function carica(){
+    const x=new XMLHttpRequest();
+    x.open("GET", 'file2.json', true);
+    x.onload=function(){
+        if(x.status==200){
+            const dati=JSON.parse(x.responseText);
+            const tabella=document.getElementById("Anagrafica");
+            for(let i=0;i<dati.anagrafica.length;i++){
+                const persona=dati.anagrafica[i];
+                const riga=document.createElement("tr");
+                
+                    const cellaNome = document.createElement("td");
+                    cellaNome.textContent = persona.nome;
+                    riga.appendChild(cellaNome);
+
+                    const cellaCognome = document.createElement("td");
+                    cellaCognome.textContent = persona.cognome;
+                    riga.appendChild(cellaCognome);
+
+                    const cellaEta = document.createElement("td");
+                    cellaEta.textContent = persona.eta;
+                    riga.appendChild(cellaEta);
+
+                    const cellaIndirizzo = document.createElement("td");
+                    cellaIndirizzo.textContent = persona.indirizzo;
+                    riga.appendChild(cellaIndirizzo);
+
+                    const cellaCitta = document.createElement("td");
+                    cellaCitta.textContent = persona.citta;
+                    riga.appendChild(cellaCitta);
+
+                const cellaTelefoni = document.createElement("td");  
+                    const lista = document.createElement("ul");
+                    for (let j = 0; j < persona.telefoni.length; j++) {
+                        const li = document.createElement("li");
+                        li.textContent = persona.telefoni[j]; 
+                        lista.appendChild(li);
+                        }
+                    cellaTelefoni.appendChild(lista); 
+                    riga.appendChild(cellaTelefoni); 
+
+
+               
+                 
+                    tabella.appendChild(riga);
+            }
+        }
+    }
+x.send();
 }
-}
-};
-c.send();
+carica();
 </script>
 </body>
 </html>
