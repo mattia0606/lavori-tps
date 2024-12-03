@@ -1,0 +1,24 @@
+{
+    "anagrafica": [
+        {
+            "nome": "Mario",
+            "cognome": "Rossi",
+            "eta": 30,
+            "indirizzo": "Via Roma 123",
+            "citta": "Milano",
+            "telefono": "1234567890",
+            "immagine": "mario.jpg",
+            "portfolio": "portfolio.jpg"
+        },
+        {
+            "nome": "Giulia",
+            "cognome": "Bianchi",
+            "eta": 25,
+            "indirizzo": "Viale Italia 45",
+            "citta": "Torino",
+            "telefono": "3456789012",
+            "immagine": "giulia.jpg",
+            "portfolio": "portfolio.jpg"
+        }
+    ]
+}
