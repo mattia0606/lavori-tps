@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elenco Post WordPress</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background-color: white;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        a {
+            color: #0073aa;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Elenco degli ultimi Post di WordPress.org</h1>
+    <ul id="posts-list"></ul>
+
+    <script>
+        const apiUrl = 'https://make.wordpress.org/core/wp-json/wp/v2/posts';
+
+        async function getPosts() {
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error('Errore nella richiesta API');
+                }
+                const posts = await response.json();
+                
+                const postsList = document.getElementById('posts-list');
+                
+                posts.forEach(post => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <h2><a href="${post.link}" target="_blank">${post.title.rendered}</a></h2>
+                        <p>${post.excerpt.rendered}</p>
+                    `;
+                    postsList.appendChild(li);
+                });
+            } catch (error) {
+                console.error('Errore:', error);
+                const postsList = document.getElementById('posts-list');
+                postsList.innerHTML = '<p>Impossibile caricare i post. Riprova più tardi.</p>';
+            }
+        }
+
+        window.onload = getPosts;
+    </script>
+</body>
+</html>
