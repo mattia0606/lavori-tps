@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenStreetMap Geolocator</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>OpenStreetMap Geolocation</h1>
+    <button onclick="getLocation()">Get My Location</button>
+    <div id="map"></div>
+    
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        let map = L.map('map').setView([0, 0], 3);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                // Richiede la posizione con alta precisione
+                navigator.geolocation.getCurrentPosition(showPosition, showError, {
+                    enableHighAccuracy: true, // Maggiore precisione
+                    timeout: 10000, // Timeout di 10 secondi
+                    maximumAge: 0 // Non usare dati in cache
+                });
+            } else {
+                alert("La geolocalizzazione non è supportata da questo browser.");
+            }
+        }
+
+        function showPosition(position) {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            const accuracy = position.coords.accuracy;
+            const userLocation = [lat, lng];
+
+            console.log(`Latitudine: ${lat}, Longitudine: ${lng}, Precisione: ${accuracy} metri`);
+
+            map.setView(userLocation, 15);
+
+            L.marker(userLocation).addTo(map)
+                .bindPopup(`You are here! (Accuracy: ${accuracy} meters)`) // Mostra anche la precisione
+                .openPopup();
+        }
+
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("L'utente ha negato la richiesta di geolocalizzazione.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Le informazioni sulla posizione non sono disponibili.");
+                    break;
+                case error.TIMEOUT:
+                    alert("La richiesta per ottenere la posizione è scaduta.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("Si è verificato un errore sconosciuto.");
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
+
