@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elenco Post WordPress</title>
+    <title>Elenco Post da API</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -25,61 +25,54 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        a {
-            color: #0073aa;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
+        h2 {
+            margin: 0 0 10px 0;
         }
     </style>
 </head>
 <body>
-    <h1>Elenco degli ultimi Post di WordPress.org</h1>
+    <h1>Elenco dei Post (API JSONPlaceholder)</h1>
     <ul id="posts-list"></ul>
 
     <script>
-       <script>
-    const apiUrl = 'https://make.wordpress.org/core/wp-json/wp/v2/posts';
+        const apiUrl = 'https://jsonplaceholder.typicode.com/posts';
 
-    function getPosts() {
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', apiUrl, true);
+        function getPosts() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', apiUrl, true);
 
-        xhr.onload = function () {
-            const postsList = document.getElementById('posts-list');
-            if (xhr.status >= 200 && xhr.status < 300) {
-                try {
-                    const posts = JSON.parse(xhr.responseText);
+            xhr.onload = function () {
+                const postsList = document.getElementById('posts-list');
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    try {
+                        const posts = JSON.parse(xhr.responseText);
 
-                    posts.forEach(post => {
-                        const li = document.createElement('li');
-                        li.innerHTML = `
-                            <h2><a href="${post.link}" target="_blank">${post.title.rendered}</a></h2>
-                            <p>${post.excerpt.rendered}</p>
-                        `;
-                        postsList.appendChild(li);
-                    });
-                } catch (e) {
-                    console.error('Errore di parsing JSON:', e);
-                    postsList.innerHTML = '<p>Errore nel caricamento dei post.</p>';
+                        // Prendiamo solo i primi 10 post per non sovraccaricare la pagina
+                        posts.slice(0, 10).forEach(post => {
+                            const li = document.createElement('li');
+                            li.innerHTML = `
+                                <h2>${post.title}</h2>
+                                <p>${post.body}</p>
+                            `;
+                            postsList.appendChild(li);
+                        });
+                    } catch (e) {
+                        console.error('Errore nel parsing JSON:', e);
+                        postsList.innerHTML = '<p>Errore nel caricamento dei post.</p>';
+                    }
+                } else {
+                    postsList.innerHTML = '<p>Errore nella risposta del server.</p>';
                 }
-            } else {
-                postsList.innerHTML = '<p>Impossibile caricare i post. Riprova più tardi.</p>';
-            }
-        };
+            };
 
-        xhr.onerror = function () {
-            const postsList = document.getElementById('posts-list');
-            postsList.innerHTML = '<p>Errore di rete. Riprova più tardi.</p>';
-        };
+            xhr.onerror = function () {
+                document.getElementById('posts-list').innerHTML = '<p>Errore di rete. Riprova più tardi.</p>';
+            };
 
-        xhr.send();
-    }
+            xhr.send();
+        }
 
-    window.onload = getPosts;
-</script>
-
+        window.onload = getPosts;
     </script>
 </body>
 </html>
