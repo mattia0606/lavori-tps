@@ -39,34 +39,47 @@
     <ul id="posts-list"></ul>
 
     <script>
-        const apiUrl = 'https://make.wordpress.org/core/wp-json/wp/v2/posts';
+       <script>
+    const apiUrl = 'https://make.wordpress.org/core/wp-json/wp/v2/posts';
 
-        async function getPosts() {
-            try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) {
-                    throw new Error('Errore nella richiesta API');
+    function getPosts() {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', apiUrl, true);
+
+        xhr.onload = function () {
+            const postsList = document.getElementById('posts-list');
+            if (xhr.status >= 200 && xhr.status < 300) {
+                try {
+                    const posts = JSON.parse(xhr.responseText);
+
+                    posts.forEach(post => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `
+                            <h2><a href="${post.link}" target="_blank">${post.title.rendered}</a></h2>
+                            <p>${post.excerpt.rendered}</p>
+                        `;
+                        postsList.appendChild(li);
+                    });
+                } catch (e) {
+                    console.error('Errore di parsing JSON:', e);
+                    postsList.innerHTML = '<p>Errore nel caricamento dei post.</p>';
                 }
-                const posts = await response.json();
-                
-                const postsList = document.getElementById('posts-list');
-                
-                posts.forEach(post => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `
-                        <h2><a href="${post.link}" target="_blank">${post.title.rendered}</a></h2>
-                        <p>${post.excerpt.rendered}</p>
-                    `;
-                    postsList.appendChild(li);
-                });
-            } catch (error) {
-                console.error('Errore:', error);
-                const postsList = document.getElementById('posts-list');
+            } else {
                 postsList.innerHTML = '<p>Impossibile caricare i post. Riprova più tardi.</p>';
             }
-        }
+        };
 
-        window.onload = getPosts;
+        xhr.onerror = function () {
+            const postsList = document.getElementById('posts-list');
+            postsList.innerHTML = '<p>Errore di rete. Riprova più tardi.</p>';
+        };
+
+        xhr.send();
+    }
+
+    window.onload = getPosts;
+</script>
+
     </script>
 </body>
 </html>
